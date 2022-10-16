@@ -1,16 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 import { User } from '../models/user';
+import { IUser } from '../utils/interfaces/user-interface';
 import { messages } from '../utils/constants/messages';
 
 let idVerified: string;
 
-export const JWTvalidation = (req: Request, res: Response, next: NextFunction) => {
+export const JWTvalidation = (req: Request, res: Response, next: NextFunction): Response<any, Record<string, any>> | undefined => {
     const privateKey: Secret = process.env.SECRET_KEY || '';
     const token: string = req.header('x-token') || '';
 
     if (!token) {
-        res.status(401).json({
+        return res.status(401).json({
             successful: false,
             msg: messages.unauthorized_user,
         });
@@ -30,7 +31,7 @@ export const JWTvalidation = (req: Request, res: Response, next: NextFunction) =
 
 export const validateAdminRole = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await User.findById(idVerified); // Por medio del id del usuario obtenido en JWTvalidation. Lo busco en la BD y verifico si tinen el role de administrador.
+        const user: IUser | null = await User.findById(idVerified); // Por medio del id del usuario obtenido en JWTvalidation. Lo busco en la BD y verifico si tinen el role de administrador.
 
         if (!user) {
             return res.status(404).json({

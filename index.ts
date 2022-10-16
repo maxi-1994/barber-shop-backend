@@ -5,7 +5,7 @@ import * as bodyParser from 'body-parser';
 import { dbConnection } from './database/config';
 import { authRouter } from './routes/auth-routes';
 import { usersRouter } from './routes/users-routes';
-
+import { barberRouter } from './routes/barbers-routes';
 
 dotenv.config();
 
@@ -21,6 +21,7 @@ dbConnection();
 // Routes
 app.use('/api/login', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/barbers', barberRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${process.env.PORT}`);

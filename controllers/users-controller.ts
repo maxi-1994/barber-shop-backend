@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { User } from '../models/user';
-import { getToken } from '../helpers/jwt-generator';
+import { IUser, IUserResponse } from '../utils/interfaces/user-interface';
 import { messages } from '../utils/constants/messages';
 import bcryptjs from 'bcryptjs';
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const users = await User.find({}, 'name email role');
+        const users: IUserResponse[] = await User.find({}, 'name email role');
         return res.status(200).json({
             successfull: true,
             users
@@ -20,9 +20,9 @@ export const getUsers = async (req: Request, res: Response) => {
     }
 }
 
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const emailExists = await User.findOne({ email: req?.body.email });
+        const emailExists: IUser | null = await User.findOne({ email: req?.body.email });
 
         if (emailExists) { 
             return res?.status(400).json({
@@ -31,29 +31,25 @@ export const createUser = async (req: Request, res: Response) => {
             });    
         }
 
-        const newOperator = {
+        const newUser = new User({
             ...req.body,
             role: 'OPERATOR_USER'
-        }
-
-        const newUser = new User(newOperator);
+        });
 
         // Encriptar password
-        const salt = bcryptjs.genSaltSync();
+        const salt: string = bcryptjs.genSaltSync();
         newUser.password = bcryptjs.hashSync(req?.body.password, salt);
 
-        const userCreated = await newUser.save();
+        const userCreated: IUser = await newUser.save();
 
-        // Generar JWT
-        const token = await getToken(userCreated._id);
+        // // Generar JWT
+        // const token = await getToken(userCreated._id);
 
         return res?.status(200).json({
             successful: true,
-            userCreated,
-            token,
             msg: messages.user_created,
+            userCreated,
         });
-
     } catch(error) {
         console.error(error);
         return res?.status(500).json({
@@ -63,10 +59,10 @@ export const createUser = async (req: Request, res: Response) => {
     }
 }
 
-export const updateUser = async (req: Request, res: Response) => {
+export const updateUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const userId = req.params.id
-        const user = await User.findById(userId);
+        const userId: string = req.params.id
+        const user: IUser | null = await User.findById(userId);
 
         if (!user) {
             return res.status(404).json({
@@ -75,7 +71,7 @@ export const updateUser = async (req: Request, res: Response) => {
             });
         }
 
-        const userUpdated = await User.findByIdAndUpdate(userId, req.body, { returnDocument: 'after' });
+        const userUpdated: IUser | null = await User.findByIdAndUpdate(userId, req.body, { returnDocument: 'after' });
 
         return res.status(200).json({
             successful: true,
@@ -91,10 +87,10 @@ export const updateUser = async (req: Request, res: Response) => {
     }
 }
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const userId = req.params.id
-        const user = await User.findById(userId);
+        const userId: string = req.params.id
+        const user: IUser | null = await User.findById(userId);
 
         if (!user) {
             return res.status(404).json({

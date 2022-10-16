@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUser = exports.updateUser = exports.createUser = exports.getUsers = void 0;
 const user_1 = require("../models/user");
-const jwt_generator_1 = require("../helpers/jwt-generator");
 const messages_1 = require("../utils/constants/messages");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -43,19 +42,17 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 msg: messages_1.messages.email_already_exists,
             });
         }
-        const newOperator = Object.assign(Object.assign({}, req.body), { role: 'OPERATOR_USER' });
-        const newUser = new user_1.User(newOperator);
+        const newUser = new user_1.User(Object.assign(Object.assign({}, req.body), { role: 'OPERATOR_USER' }));
         // Encriptar password
         const salt = bcryptjs_1.default.genSaltSync();
         newUser.password = bcryptjs_1.default.hashSync(req === null || req === void 0 ? void 0 : req.body.password, salt);
         const userCreated = yield newUser.save();
-        // Generar JWT
-        const token = yield (0, jwt_generator_1.getToken)(userCreated._id);
+        // // Generar JWT
+        // const token = await getToken(userCreated._id);
         return res === null || res === void 0 ? void 0 : res.status(200).json({
             successful: true,
-            userCreated,
-            token,
             msg: messages_1.messages.user_created,
+            userCreated,
         });
     }
     catch (error) {

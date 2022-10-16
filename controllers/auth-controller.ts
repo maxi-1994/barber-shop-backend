@@ -1,13 +1,14 @@
 import { Request, Response } from 'express';
 import { User } from '../models/user';
+import { IUser } from '../utils/interfaces/user-interface';
 import { getToken } from '../helpers/jwt-generator';
 import { messages } from '../utils/constants/messages';
 import bcryptjs from 'bcryptjs';
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response): Promise<Response> => {
     try {
         const user = await User.findOne({ email: req.body.email });
-        const validPassword = bcryptjs.compareSync(req.body.password, user?.password || '');
+        const validPassword: boolean = bcryptjs.compareSync(req.body.password, user?.password || '');
 
         if (!user || !validPassword) {
             return res.status(401).json({
@@ -16,7 +17,7 @@ export const login = async (req: Request, res: Response) => {
             });
         }
 
-        const token = await getToken(user._id);
+        const token: string = await getToken(user._id);
 
         return res.status(200).json({
             successful: true,
