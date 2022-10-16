@@ -33,6 +33,7 @@ const bodyParser = __importStar(require("body-parser"));
 const config_1 = require("./database/config");
 const auth_routes_1 = require("./routes/auth-routes");
 const users_routes_1 = require("./routes/users-routes");
+const barbers_routes_1 = require("./routes/barbers-routes");
 dotenv_1.default.config();
 // Server
 const app = (0, express_1.default)();
@@ -43,6 +44,7 @@ app.use(bodyParser.json());
 // Routes
 app.use('/api/login', auth_routes_1.authRouter);
 app.use('/api/users', users_routes_1.usersRouter);
+app.use('/api/barbers', barbers_routes_1.barberRouter);
 app.listen(process.env.PORT, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${process.env.PORT}`);
 });

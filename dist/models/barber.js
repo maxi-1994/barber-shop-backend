@@ -11,31 +11,26 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Barber = void 0;
 const mongoose_1 = require("mongoose");
 // Schema corresponding to the document interface.
-const userSchema = new mongoose_1.Schema({
+const barberSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: true,
     },
-    email: {
+    sex: {
         type: String,
         required: true,
     },
-    password: {
+    image: {
         type: String,
-        required: true,
+        required: false,
     },
-    role: {
-        type: String,
-        required: true,
-        default: 'ADMIN_USER'
-    }
 });
-userSchema.method('toJSON', function () {
-    const _a = this.toObject(), { __v, password } = _a, object = __rest(_a, ["__v", "password"]);
+barberSchema.method('toJSON', function () {
+    const _a = this.toObject(), { __v } = _a, object = __rest(_a, ["__v"]);
     return object;
 });
 // Model.
-exports.User = (0, mongoose_1.model)('users', userSchema);
+exports.Barber = (0, mongoose_1.model)('barbers', barberSchema);

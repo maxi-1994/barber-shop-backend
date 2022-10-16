@@ -21,7 +21,7 @@ const JWTvalidation = (req, res, next) => {
     const privateKey = process.env.SECRET_KEY || '';
     const token = req.header('x-token') || '';
     if (!token) {
-        res.status(401).json({
+        return res.status(401).json({
             successful: false,
             msg: messages_1.messages.unauthorized_user,
         });
