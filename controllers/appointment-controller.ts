@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Appointment } from '../models/appointment';
 import { IAppointment } from '../utils/interfaces/appointment-interface';
 import { messages } from '../utils/constants/messages';
+import { states } from '../utils/constants/appointment-states';
 
 export const getAppointments = async (req: Request, res: Response): Promise<Response> => {
     try {
@@ -60,11 +61,19 @@ export const updateAppointment = async (req: Request, res: Response): Promise<Re
     try {
         const appointmentId = req.params.id
         const appointmentExists = await Appointment.findById(appointmentId);
+        const bodyState = req.body.state;
 
         if (!appointmentExists) {
-            return res.status(200).json({
+            return res.status(404).json({
                 succesful: true,
                 msg: messages.appointment_does_not_exist,
+            });
+        }
+
+        if (bodyState !== states.canceled || bodyState !== states.pending || bodyState !== states.confirmed) {
+            return res.status(400).json({
+                succesful: true,
+                msg: messages.wrong_state,
             });
         }
 
@@ -92,7 +101,7 @@ export const deleteAppointment = async (req: Request, res: Response): Promise<Re
         const appointmentExists = await Appointment.findById(appointmentId);
 
         if (!appointmentExists) {
-            return res.status(200).json({
+            return res.status(404).json({
                 succesful: true,
                 msg: messages.appointment_does_not_exist,
             });

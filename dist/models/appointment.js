@@ -37,7 +37,7 @@ const appointmentSchema = new mongoose_1.Schema({
     },
     clientNumber: {
         type: Number,
-        required: false,
+        required: true,
     },
     clientEmail: {
         type: String,
@@ -50,7 +50,7 @@ const appointmentSchema = new mongoose_1.Schema({
     state: {
         type: String,
         required: true,
-        default: 'pendiente',
+        default: 'Pendiente',
     }
 });
 appointmentSchema.method('toJSON', function () {

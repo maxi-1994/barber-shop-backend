@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAppointment = exports.updateAppointment = exports.createAppointment = exports.getAppointments = void 0;
 const appointment_1 = require("../models/appointment");
 const messages_1 = require("../utils/constants/messages");
+const appointment_states_1 = require("../utils/constants/appointment-states");
 const getAppointments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const appointments = yield appointment_1.Appointment.find();
@@ -64,10 +65,17 @@ const updateAppointment = (req, res) => __awaiter(void 0, void 0, void 0, functi
     try {
         const appointmentId = req.params.id;
         const appointmentExists = yield appointment_1.Appointment.findById(appointmentId);
+        const bodyState = req.body.state;
         if (!appointmentExists) {
-            return res.status(200).json({
+            return res.status(404).json({
                 succesful: true,
                 msg: messages_1.messages.appointment_does_not_exist,
+            });
+        }
+        if (bodyState !== appointment_states_1.states.canceled || bodyState !== appointment_states_1.states.pending || bodyState !== appointment_states_1.states.confirmed) {
+            return res.status(400).json({
+                succesful: true,
+                msg: messages_1.messages.wrong_state,
             });
         }
         const appointmentUpdated = yield appointment_1.Appointment.findByIdAndUpdate(appointmentId, req.body, { returnDocument: 'after' });
@@ -92,7 +100,7 @@ const deleteAppointment = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const appointmentId = req.params.id;
         const appointmentExists = yield appointment_1.Appointment.findById(appointmentId);
         if (!appointmentExists) {
-            return res.status(200).json({
+            return res.status(404).json({
                 succesful: true,
                 msg: messages_1.messages.appointment_does_not_exist,
             });

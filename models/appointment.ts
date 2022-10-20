@@ -25,7 +25,7 @@ const appointmentSchema: Schema<IAppointment> = new Schema<IAppointment>({
     },
     clientNumber: {
         type: Number,
-        required: false,
+        required: true,
     },
     clientEmail: {
         type: String,
@@ -38,7 +38,7 @@ const appointmentSchema: Schema<IAppointment> = new Schema<IAppointment>({
     state: {
         type: String,
         required: true,
-        default: 'pendiente',
+        default: 'Pendiente',
     }
 });
 

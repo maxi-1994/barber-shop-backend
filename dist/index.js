@@ -30,11 +30,13 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const bodyParser = __importStar(require("body-parser"));
+const apiUrls_1 = require("./utils/constants/apiUrls");
 const config_1 = require("./database/config");
 const auth_routes_1 = require("./routes/auth-routes");
 const users_routes_1 = require("./routes/users-routes");
 const barbers_routes_1 = require("./routes/barbers-routes");
 const appointment_routes_1 = require("./routes/appointment-routes");
+const services_list_routes_1 = require("./routes/services-list-routes");
 dotenv_1.default.config();
 // Server
 const app = (0, express_1.default)();
@@ -43,10 +45,11 @@ app.use(bodyParser.json());
 // DB Connection
 (0, config_1.dbConnection)();
 // Routes
-app.use('/api/login', auth_routes_1.authRouter);
-app.use('/api/users', users_routes_1.usersRouter);
-app.use('/api/barbers', barbers_routes_1.barberRouter);
-app.use('/api/appointments', appointment_routes_1.appointmentRouter);
+app.use(apiUrls_1.apiUrls.login, auth_routes_1.authRouter);
+app.use(apiUrls_1.apiUrls.users, users_routes_1.usersRouter);
+app.use(apiUrls_1.apiUrls.barbers, barbers_routes_1.barberRouter);
+app.use(apiUrls_1.apiUrls.appointments, appointment_routes_1.appointmentRouter);
+app.use(apiUrls_1.apiUrls.servicesList, services_list_routes_1.servicesListRouter);
 app.listen(process.env.PORT, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${process.env.PORT}`);
 });
