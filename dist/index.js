@@ -34,6 +34,7 @@ const config_1 = require("./database/config");
 const auth_routes_1 = require("./routes/auth-routes");
 const users_routes_1 = require("./routes/users-routes");
 const barbers_routes_1 = require("./routes/barbers-routes");
+const appointment_routes_1 = require("./routes/appointment-routes");
 dotenv_1.default.config();
 // Server
 const app = (0, express_1.default)();
@@ -45,6 +46,7 @@ app.use(bodyParser.json());
 app.use('/api/login', auth_routes_1.authRouter);
 app.use('/api/users', users_routes_1.usersRouter);
 app.use('/api/barbers', barbers_routes_1.barberRouter);
+app.use('/api/appointments', appointment_routes_1.appointmentRouter);
 app.listen(process.env.PORT, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${process.env.PORT}`);
 });

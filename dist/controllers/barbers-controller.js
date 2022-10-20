@@ -31,6 +31,8 @@ const getBarbers = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.getBarbers = getBarbers;
 const createBarber = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // TODO: Agregar funcionalidad de subir foto.
+    // DUDA: Guardar la imagen en base64 en localStorage del navegador en vez generar un servicio nuevo.
+    // hackmd.io -> hackmd para subir imagenes y consumirlas.
     try {
         const barberExists = yield barber_1.Barber.findOne({ name: req === null || req === void 0 ? void 0 : req.body.name });
         if (barberExists) {
@@ -63,7 +65,7 @@ const updateBarber = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         if (!barber) {
             return res.status(404).json({
                 successful: true,
-                msg: messages_1.messages.barber_doesNot_exist,
+                msg: messages_1.messages.barber_does_not_exist,
             });
         }
         const barberUpdated = yield barber_1.Barber.findByIdAndUpdate(barberId, Object.assign({}, req.body), { returnDocument: 'after' });
@@ -89,7 +91,7 @@ const deleteBarber = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         if (!barber) {
             return res.status(404).json({
                 successful: true,
-                msg: messages_1.messages.barber_doesNot_exist,
+                msg: messages_1.messages.barber_does_not_exist,
             });
         }
         yield barber_1.Barber.findByIdAndUpdate(barberId);
