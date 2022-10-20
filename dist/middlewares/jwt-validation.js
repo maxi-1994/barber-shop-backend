@@ -45,7 +45,7 @@ const validateAdminRole = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         if (!user) {
             return res.status(404).json({
                 successful: false,
-                msg: messages_1.messages.user_doesNot_exist
+                msg: messages_1.messages.user_does_not_exist
             });
         }
         if (user.role !== 'ADMIN_USER') {

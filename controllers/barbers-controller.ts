@@ -20,7 +20,11 @@ export const getBarbers = async (req: Request, res: Response): Promise<Response>
 }
 
 export const createBarber = async (req: Request, res: Response): Promise<Response> => {
+
     // TODO: Agregar funcionalidad de subir foto.
+    // DUDA: Guardar la imagen en base64 en localStorage del navegador en vez generar un servicio nuevo.
+    // hackmd.io -> hackmd para subir imagenes y consumirlas.
+
     try {
         const barberExists: IBarber | null = await Barber.findOne({ name: req?.body.name });
 
@@ -56,7 +60,7 @@ export const updateBarber = async (req: Request, res: Response): Promise<Respons
         if (!barber) {
             return res.status(404).json({
                 successful: true,
-                msg: messages.barber_doesNot_exist,
+                msg: messages.barber_does_not_exist,
             });
         }
     
@@ -84,7 +88,7 @@ export const deleteBarber = async (req: Request, res: Response): Promise<Respons
         if (!barber) {
             return res.status(404).json({
                 successful: true,
-                msg: messages.barber_doesNot_exist,
+                msg: messages.barber_does_not_exist,
             });
         }
     

@@ -36,7 +36,7 @@ export const validateAdminRole = async (req: Request, res: Response, next: NextF
         if (!user) {
             return res.status(404).json({
                 successful: false,
-                msg: messages.user_doesNot_exist
+                msg: messages.user_does_not_exist
             });
         }
 

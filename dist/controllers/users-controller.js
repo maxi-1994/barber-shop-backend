@@ -71,7 +71,7 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         if (!user) {
             return res.status(404).json({
                 successful: true,
-                msg: messages_1.messages.user_doesNot_exist
+                msg: messages_1.messages.user_does_not_exist
             });
         }
         const userUpdated = yield user_1.User.findByIdAndUpdate(userId, req.body, { returnDocument: 'after' });
@@ -97,7 +97,7 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         if (!user) {
             return res.status(404).json({
                 successful: true,
-                msg: messages_1.messages.user_doesNot_exist,
+                msg: messages_1.messages.user_does_not_exist,
             });
         }
         yield user_1.User.findByIdAndDelete(userId);

@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { IBarber } from '../utils/interfaces/barber-interface';
 
 // Schema corresponding to the document interface.
-const barberSchema = new Schema<IBarber>({
+const barberSchema: Schema<IBarber> = new Schema<IBarber>({
     name: { 
         type: String, 
         required: true,

@@ -67,7 +67,7 @@ export const updateUser = async (req: Request, res: Response): Promise<Response>
         if (!user) {
             return res.status(404).json({
                 successful: true,
-                msg: messages.user_doesNot_exist
+                msg: messages.user_does_not_exist
             });
         }
 
@@ -95,7 +95,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<Response>
         if (!user) {
             return res.status(404).json({
                 successful: true,
-                msg: messages.user_doesNot_exist,
+                msg: messages.user_does_not_exist,
             });
         }
 

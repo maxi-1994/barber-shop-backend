@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { IUser } from '../utils/interfaces/user-interface';
 
 // Schema corresponding to the document interface.
-const userSchema = new Schema<IUser>({
+const userSchema: Schema<IUser> = new Schema<IUser>({
     name: { 
         type: String, 
         required: true,
