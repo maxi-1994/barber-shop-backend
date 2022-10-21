@@ -1,17 +1,14 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.barberRouter = void 0;
-const express_1 = __importDefault(require("express"));
+const express_1 = require("express");
 const jwt_validation_1 = require("../middlewares/jwt-validation");
 const express_validator_1 = require("express-validator");
 const request_validation_1 = require("../middlewares/request-validation");
 const messages_1 = require("../utils/constants/messages");
 const barbers_controller_1 = require("../controllers/barbers-controller");
 // /api/barbers
-exports.barberRouter = (0, express_1.default)();
+exports.barberRouter = (0, express_1.Router)();
 exports.barberRouter.get('/get-barbers', jwt_validation_1.JWTvalidation, barbers_controller_1.getBarbers);
 exports.barberRouter.post('/create-barbers', [
     jwt_validation_1.JWTvalidation,

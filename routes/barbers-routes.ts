@@ -1,4 +1,4 @@
-import Router, { Express } from 'express';
+import { Router } from 'express';
 import { JWTvalidation } from '../middlewares/jwt-validation';
 import { check } from 'express-validator';
 import { requestValidation } from '../middlewares/request-validation'; 
@@ -6,7 +6,7 @@ import { messages } from '../utils/constants/messages';
 import { getBarbers, createBarber, updateBarber, deleteBarber } from '../controllers/barbers-controller';
 
 // /api/barbers
-export const barberRouter: Express = Router();
+export const barberRouter: Router = Router();
 
 barberRouter.get('/get-barbers', JWTvalidation, getBarbers);
 barberRouter.post('/create-barbers', [

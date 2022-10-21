@@ -22,16 +22,19 @@ export const messages = {
 
     required_name: 'El nombre es obligatorio.',
     required_email: 'El correo es obligatorio.',
+    required_number: 'El número telefónico es obligatorio.',
     required_password: 'La contraseña es obligatoria.',
     required_role: 'El role es obligatorio.',
     required_sex: 'El sexo es obligatorio.',
     required_service: 'Debe seleccionar un servicio.',
     required_date: 'Debe seleccionar un día para el turno.',
     required_hour: 'Debe seleccionar una hora para el turno.',
+    required_state: 'El estado es obligatorio.',
 
     welcome_message: 'Bienvenido/a',
+    wrong_state: 'El estado no es valido',
     wrong_access: 'El email o la contraseña no son validos',
     unauthorized_user: 'Usuario no autorizado.',
     invalid_token: 'Token invalido.',
     unexpected_error: 'Error inesperado. Contacte con el proveedor del servicio.',
-}
+};
