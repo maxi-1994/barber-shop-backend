@@ -15,7 +15,6 @@ appointmentRouter.get('/get-appointments', JWTvalidation, getAppointments);
 appointmentRouter.post('/create-appointment', [
     check('service', messages.required_service).not().isEmpty(),
     check('date', messages.required_date).not().isEmpty(),
-    check('hour', messages.required_hour).not().isEmpty(),
     check('clientName', messages.required_name).not().isEmpty(),
     check('clientNumber', messages.required_number).not().isEmpty(),
     check('clientEmail', messages.required_email).isEmail(),

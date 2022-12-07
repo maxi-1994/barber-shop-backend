@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { User } from '../models/user';
-import { IUser } from '../utils/interfaces/user-interface';
 import { getToken } from '../helpers/jwt-generator';
 import { messages } from '../utils/constants/messages';
 import bcryptjs from 'bcryptjs';

@@ -15,10 +15,6 @@ const appointmentSchema: Schema<IAppointment> = new Schema<IAppointment>({
         type: String,
         required: true,
     },
-    hour: {
-        type: String,
-        required: true,
-    },
     clientName: {
         type: String,
         required: true,

@@ -15,7 +15,6 @@ exports.appointmentRouter.get('/get-appointments', jwt_validation_1.JWTvalidatio
 exports.appointmentRouter.post('/create-appointment', [
     (0, express_validator_1.check)('service', messages_1.messages.required_service).not().isEmpty(),
     (0, express_validator_1.check)('date', messages_1.messages.required_date).not().isEmpty(),
-    (0, express_validator_1.check)('hour', messages_1.messages.required_hour).not().isEmpty(),
     (0, express_validator_1.check)('clientName', messages_1.messages.required_name).not().isEmpty(),
     (0, express_validator_1.check)('clientNumber', messages_1.messages.required_number).not().isEmpty(),
     (0, express_validator_1.check)('clientEmail', messages_1.messages.required_email).isEmail(),
